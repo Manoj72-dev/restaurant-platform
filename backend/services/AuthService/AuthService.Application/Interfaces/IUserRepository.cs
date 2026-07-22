@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AuthService.Application.Interfaces
 {
-    public interface IUserRespository
+    public interface IUserRepository
     {
         Task<User?> GetByIdAsync(Guid id);
         Task<User?> GetByPhoneNumberAsync(string phoneNumber);

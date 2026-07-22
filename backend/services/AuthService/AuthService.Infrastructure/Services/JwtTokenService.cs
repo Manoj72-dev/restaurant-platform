@@ -1,15 +1,11 @@
 ﻿using AuthService.Application.Interfaces;
 using AuthService.Domain.Entities;
-using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.Json.Serialization.Metadata;
 
 namespace AuthService.Infrastructure.Services;
 

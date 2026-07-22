@@ -1,8 +1,5 @@
 ﻿using AuthService.Application.DTOs.Requests;
 using AuthService.Application.DTOs.Responses;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AuthService.Application.Interfaces
 {
