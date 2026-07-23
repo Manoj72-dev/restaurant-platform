@@ -1,9 +1,8 @@
 ﻿using AuthService.Application.DTOs.Requests;
+using AuthService.Application.DTOs.Responses;
 using AuthService.Application.Interfaces;
-using AuthService.Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics.Eventing.Reader;
 using System.Security.Claims;
 
 namespace AuthService.Api.Controllers;
@@ -39,7 +38,20 @@ public class AuthController : ControllerBase
         try
         {
             var result = await _authService.VerifyOtpAsync(request, ClientIp);
-            return Ok(result);
+            Response.Cookies.Append("refreshToken", result.RefreshToken, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+                Expires = result.AccessTokenExpiresAt.AddDays(30)
+            });
+
+            return Ok(new AuthResponsePublic
+            {
+                AccessToken = result.AccessToken,
+                AccessTokenExpiresAt = result.AccessTokenExpiresAt
+            });
+
         }catch(InvalidOperationException ex)
         {
             return BadRequest(new { message = ex.Message });
@@ -55,17 +67,27 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("refresh-token")]
-    public async Task<IActionResult> RefreshToken(RefreshTokenRequest request)
+    public async Task<IActionResult> RefreshToken()
     {
-        var result = await _authService.RefreshTokenAsync(request, ClientIp);
+        var refreshToken = Request.Cookies["refreshToken"];
+
+        if (string.IsNullOrEmpty(refreshToken))
+            return Unauthorized(new { message = "No refresh token provided." });
+
+        var result = await _authService.RefreshTokenAsync(refreshToken , ClientIp);
         return Ok(result);
     }
 
     [Authorize]
     [HttpPost("logout")]
-    public async Task<IActionResult> Logout(RefreshTokenRequest request)
+    public async Task<IActionResult> Logout()
     {
-        await _authService.LogoutAsync(request.RefreshToken);
+        var refreshToken = Request.Cookies["refreshToken"];
+
+        if (string.IsNullOrEmpty(refreshToken))
+            return Unauthorized(new { message = "No refresh token provided." });
+
+        await _authService.LogoutAsync(refreshToken);
         return Ok(new { message = "Logged out." });
     }
 

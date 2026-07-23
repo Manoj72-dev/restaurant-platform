@@ -3,4 +3,8 @@
   <Project Path="services/AuthService/AuthService.Application/AuthService.Application.csproj" Id="614483db-a600-45d1-94f4-edcab4ac4002" />
   <Project Path="services/AuthService/AuthService.Domain/AuthService.Domain.csproj" Id="de71b493-e0d2-43b3-8bb3-182d60f40df0" />
   <Project Path="services/AuthService/AuthService.Infrastructure/AuthService.Infrastructure.csproj" Id="0253fd25-6ea8-461a-98d8-d2f46b42eef5" />
+  <Project Path="services/MenuService/MenuService.Api/MenuService.Api.csproj" Id="1a76f447-e2dd-419f-bf07-c7eb2182eca7" />
+  <Project Path="services/MenuService/MenuService.Application/MenuService.Application.csproj" Id="cbde7a23-c716-4da1-a5c7-9fcb9d9c3880" />
+  <Project Path="services/MenuService/MenuService.Domain/MenuService.Domain.csproj" Id="4242369b-f0aa-4da2-b6ac-ac8a4d934234" />
+  <Project Path="services/MenuService/MenuService.Infrastructure/MenuService.Infrastructure.csproj" Id="4e3c9600-f9d8-45f6-ab61-59013010327d" />
 </Solution>

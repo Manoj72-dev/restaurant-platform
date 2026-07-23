@@ -61,9 +61,9 @@ public class AuthOrchestrationService : IAuthService
         return await IssueTokensAsync(user, ipAddress);
     }
 
-    public async Task<AuthResponse> RefreshTokenAsync(RefreshTokenRequest request, string? ipAddress)
+    public async Task<AuthResponse> RefreshTokenAsync(string refreshToken, string? ipAddress)
     {
-        var tokenHash = _hasher.Hash(request.RefreshToken);
+        var tokenHash = _hasher.Hash(refreshToken);
         var existingToken = await _refreshTokenRepository.GetByTokenHashAsync(tokenHash);
 
         if (existingToken is null || !existingToken.IsActive)
