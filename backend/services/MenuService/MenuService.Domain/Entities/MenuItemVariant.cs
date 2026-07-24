@@ -7,6 +7,7 @@ public class MenuItemVariant
     public MenuItem? MenuItem { get; set; }
 
     public string Name { get; set; } = string.Empty;
+    public string Description = string.Empty;
     public decimal Price { get; set; }
     public bool IsDefault { get; set; } = false;
     public bool IsAvailable { get; set; } = true;
